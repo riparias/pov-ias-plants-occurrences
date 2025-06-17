@@ -13,7 +13,11 @@ SELECT
   'Monitoring of invasive alien species by the Province East Flanders, Belgium' AS datasetName,
   'HumanObservation'                    AS basisOfRecord,
   o."SamplingProtocol"                  AS samplingProtocol, -- casual observation
-
+-- IDENTIFICATION
+  CASE
+    WHEN o."ValidationStatus" = 'approved by experts' THEN 'verified by experts'
+    ELSE NULL
+  END                                   AS identificationVerificationStatus,
 -- OCCURRENCE
   o."ObservationIdentifier"             AS occurrenceID,
   'present'                             AS occurrenceStatus,
