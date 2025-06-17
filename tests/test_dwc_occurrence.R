@@ -19,6 +19,7 @@ testthat::test_that("Right columns in right order", {
     "datasetName",
     "basisOfRecord",
     "samplingProtocol",
+    "identificationVerificationStatus",
     "occurrenceID",
     "occurrenceStatus",
     "organismQuantity",
@@ -51,6 +52,14 @@ testthat::test_that("occurrenceID is always present and is unique", {
   testthat::expect_true(all(!is.na(dwc_occurrence$occurrenceID)))
   testthat::expect_equal(length(unique(dwc_occurrence$occurrenceID)),
                          nrow(dwc_occurrence))
+})
+
+testthat::test_that("All data are verified by experts", {
+  testthat::expect_true(all(!is.na(dwc_occurrence$identificationVerificationStatus)))
+  testthat::expect_equal(length(unique(dwc_occurrence$identificationVerificationStatus)),
+                         1)
+  testthat::expect_equal(unique(dwc_occurrence$identificationVerificationStatus),
+                         "verified by experts")
 })
 
 testthat::test_that("samplingProtocol is always Casual Observation", {
